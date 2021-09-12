@@ -21,7 +21,7 @@
 <!-- Custom Scroll bar Js-->
 <script src="{{URL::asset('assets/plugins/mscrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- right-sidebar js -->
-<script src="{{URL::asset('assets/plugins/sidebar/sidebar-rtl.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/sidebar/sidebar.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/sidebar/sidebar-custom.js')}}"></script>
 <!-- Eva-icons js -->
 <script src="{{URL::asset('assets/js/eva-icons.min.js')}}"></script>
