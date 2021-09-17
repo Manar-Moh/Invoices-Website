@@ -1,9 +1,8 @@
 @extends('layouts.master2')
 
 @section('title')
-Invoices Organisation
+ Login - InvoicesOrg
 @stop
-
 
 @section('css')
 <!-- Sidemenu-respoansive-tabs css -->
