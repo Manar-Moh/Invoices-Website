@@ -45,13 +45,27 @@ class SectionsController extends Controller
         //
     }
 
-    public function update(Request $request, sections $sections)
+    public function update(Request $request)
     {
-        //
+        $id = $request->id;
+        $validatedData = $request->validate([
+            'section_name' => ['required', 'unique:sections,section_name,'.$id, 'max:255']
+        ]);
+        $sections_arr = sections::find($id);
+        $sections_arr->update([
+            'section_name' => $request->section_name,
+            'description' => $request->section_desc
+        ]);
+        session()->flash('success_edit','Section Was Updated Successfully');
+        return redirect('/sections');
     }
 
-    public function destroy(sections $sections)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        sections::find($id)->delete();
+        session()->flash('success_delete','Section Was Deleted Successfully');
+        return redirect('/sections');
+
     }
 }

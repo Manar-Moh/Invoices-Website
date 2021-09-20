@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Sections - InvoicesOrg')
+@section('title','Products - InvoicesOrg')
 @section('css')
     <!-- Internal Data table css -->
     <link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
@@ -20,7 +20,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Settings</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Sections</span>
+                <h4 class="content-title mb-0 my-auto">Settings</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Products</span>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                         <div class="card mg-b-20">
                             <div class="card-header pb-0 d-flex justify-content-end">
                                 <div class="col-6 col-md-4 col-lg-2">
-                                    <a class="modal-effect btn btn-primary-gradient btn-block" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo8">Add Section</a>
+                                    <a class="modal-effect btn btn-primary-gradient btn-block" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo8">Add Product</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -99,6 +99,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="border-bottom-0">#</th>
+                                                <th class="border-bottom-0">Product Name</th>
                                                 <th class="border-bottom-0">Section Name</th>
                                                 <th class="border-bottom-0">Description</th>
                                                 <th class="border-bottom-0">Operations</th>
@@ -106,11 +107,12 @@
                                         </thead>
                                         <tbody>
                                             <?php $num = 0 ?>
-                                            @foreach ($data as $d)
+                                            @foreach ($products as $d)
                                                  <?php $num++ ?>
                                                 <tr>
                                                     <td>{{$num}}</td>
-                                                    <td>{{$d->section_name}}</td>
+                                                    <td>{{$d->product_name}}</td>
+                                                    <td>{{$d->section->section_name}}</td>
                                                     <td>{{$d->description}}</td>
                                                     <td>
                                                         <a class="modal-effect btn btn-outline-info"
@@ -138,18 +140,26 @@
                                 <div class="modal-header">
                                     <h6 class="modal-title">Add Section</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                 </div>
-                                <form action="{{ route('sections.store') }}" method="post" autocomplete="off">
+                                <form action="{{ route('products.store') }}" method="post" autocomplete="off">
                                     @csrf
                                     <div class="modal-body">
-                                        <!--Add Section Name-->
+                                        <!--Add Product Name-->
                                         <div class="form-group">
                                             <label for="section_name">Name</label>
-                                            <input type="text" name="section_name" id="section_name" class="form-control" required>
+                                            <input type="text" name="product_name" id="product_name" class="form-control" required>
                                         </div>
-                                        <!--Add Section Description-->
+                                        <!--Select Section Name-->
+                                        <label for="section_id">Section Name</label>
+                                        <select name="section_id" id="section_id" class="form-control mb-3">
+                                            <option value="" selected disabled>-- Select Section --</option>
+                                            @foreach ($sections as $section)
+                                                <option value="{{$section->id}}">{{$section->section_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--Add Product Description-->
                                         <div class="form-group">
                                             <label for="section_name">Description</label>
-                                            <textarea name="section_desc" id="section_desc" rows="5" class="form-control"></textarea>
+                                            <textarea name="product_desc" id="product_desc" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
