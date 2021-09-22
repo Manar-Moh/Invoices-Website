@@ -26,12 +26,10 @@
                     <!--div-->
                     <div class="col-xl-12">
                         <div class="card mg-b-20">
-                            <div class="card-header pb-0">
-                                <div class="d-flex justify-content-between">
-                                    <h4 class="card-title mg-b-0">Bordered Table</h4>
-                                    <i class="mdi mdi-dots-horizontal text-gray"></i>
+                            <div class="card-header pb-0 d-flex justify-content-end">
+                                <div class="col-6 col-md-4 col-lg-2">
+                                    <a class="modal-effect btn btn-primary-gradient btn-block" href="invoices/create">Add Invoice</a>
                                 </div>
-                                <p class="tx-12 tx-gray-500 mb-2">Example of Valex Bordered Table.. <a href="">Learn more</a></p>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

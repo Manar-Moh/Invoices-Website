@@ -28,4 +28,6 @@ Route::resource('sections', 'SectionsController');
 
 Route::resource('products', 'ProductsController');
 
+Route::get('/section/{id}', 'InvoicesController@getProducts');
+
 Route::get('/{page}', 'AdminController@index');

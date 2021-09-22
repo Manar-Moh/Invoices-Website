@@ -116,10 +116,12 @@
                                                     <td>{{$d->description}}</td>
                                                     <td>
                                                         <a class="modal-effect btn btn-outline-info"
-                                                        data-id="{{$d->id}}" data-section-name="{{$d->section_name}}" data-desc="{{$d->description}}" data-effect="effect-rotate-bottom" data-toggle="modal" href="#modaldemo9"><i class="las la-pen"></i>
+                                                        data-id="{{$d->id}}"
+                                                        data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section_id}}" data-effect="effect-rotate-bottom" data-toggle="modal" href="#modaldemo9"><i class="las la-pen"></i>
                                                         </a>
 
-                                                        <a class="modal-effect btn btn-outline-danger" data-id="{{$d->id}}" data-section-name="{{$d->section_name}}" data-desc="{{$d->description}}" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo12"><i
+                                                        <a class="modal-effect btn btn-outline-danger" data-id="{{$d->id}}"
+                                                        data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section->section_name}}" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo12"><i
                                                         class="las la-trash"></i>
                                                         </a>
                                                     </td>
@@ -179,21 +181,27 @@
                                 <div class="modal-header">
                                     <h6 class="modal-title">Edit Section</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                 </div>
-                                <form action="sections/update" method="Post" autocomplete="off">
-                                   @method('patch')
+                                <form action="products/update" method="post" autocomplete="off">
+                                    @method('patch');
                                     @csrf
                                     <div class="modal-body">
-
-                                        <!--Add Section Name-->
+                                        <!--Add Product Name-->
                                         <div class="form-group">
                                             <input type="hidden" id="id" name="id" value="">
-                                            <label for="section_name">Name</label>
-                                            <input type="text" name="section_name" id="section_name" class="form-control" required>
+                                            <label for="product_name">Name</label>
+                                            <input type="text" name="product_name" id="product_name" class="form-control" required>
                                         </div>
-                                        <!--Add Section Description-->
+                                        <!--Select Section Name-->
+                                        <label for="section_id">Section Name</label>
+                                        <select name="section_id" id="section_id" class="form-control mb-3">
+                                            @foreach ($sections as $section)
+                                                <option value="{{$section->id}}">{{$section->section_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--Add Product Description-->
                                         <div class="form-group">
                                             <label for="section_name">Description</label>
-                                            <textarea name="section_desc" id="section_desc" rows="5" class="form-control"></textarea>
+                                            <textarea name="product_desc" id="product_desc" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -213,14 +221,14 @@
                                 <div class="modal-header">
                                     <h6 class="modal-title">Delete Section</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                 </div>
-                                <form action="sections/destroy" method="Post" autocomplete="off">
+                                <form action="products/destroy" method="Post" autocomplete="off">
                                    @method('delete')
                                     @csrf
                                     <div class="modal-body">
                                         <!--Section Name-->
-                                        <p style="margin-bottom: 15px">Are You Sure You Want To Delete This Section ?</p>
+                                        <p style="margin-bottom: 15px">Are You Sure You Want To Delete This Product ?</p>
                                         <input type="hidden" id="id" name="id" value="">
-                                        <input type="text" name="section_name" id="section_name" class="form-control" readonly>
+                                        <input type="text" name="product_name" id="product_name" class="form-control" readonly>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-danger" type="submit">Delete</button>
@@ -271,12 +279,14 @@
         $('#modaldemo9').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
+            var product_name = button.data('product-name')
             var section_name = button.data('section-name')
             var description = button.data('desc')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #section_name').val(section_name);
-            modal.find('.modal-body #section_desc').val(description);
+            modal.find('.modal-body #product_name').val(product_name);
+            modal.find('.modal-body #section_id').val(section_name);
+            modal.find('.modal-body #product_desc').val(description);
         })
     </script>
 
@@ -285,11 +295,10 @@
     $('#modaldemo12').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
-            var section_name = button.data('section-name')
-            var description = button.data('desc')
+            var product_name = button.data('product-name')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #section_name').val(section_name);
+            modal.find('.modal-body #product_name').val(product_name);
         })
     </script>
 
