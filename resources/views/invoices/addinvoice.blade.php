@@ -32,7 +32,23 @@
 
     <!-- row -->
     <div class="row">
-
+        <!-- begin::Alerts -->
+        <div class="col">
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
+                    <span class="alert-inner--text">
+                        <strong>
+                            {{session()->get('success')}}
+                        </strong>
+                    </span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            @endif
+        </div>
+        <!-- end::Alerts -->
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -146,7 +162,7 @@
 
                         <div class="col">
                             <h5 class="card-title">Attachment</h5>
-                            <input type="file" name="pic" class="dropify" accept=".pdf,.jpg, .png, image/jpeg, image/png"
+                            <input type="file" name="attachmentfile" class="dropify" accept=".pdf,.jpg, .png, image/jpeg, image/png"
                                 data-height="70" />
 
                             <p class="text-danger">* Attachment Format : pdf, jpeg, jpg, png </p>
