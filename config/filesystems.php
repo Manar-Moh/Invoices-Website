@@ -43,6 +43,11 @@ return [
 
     'disks' => [
 
+        'attachments_upload' => [
+            'driver' => 'local',
+            'root' => public_path().'/Attachments',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

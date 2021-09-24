@@ -113,11 +113,11 @@
                                                     <td>{{$d->section_name}}</td>
                                                     <td>{{$d->description}}</td>
                                                     <td>
-                                                        <a class="modal-effect btn btn-outline-info"
-                                                        data-id="{{$d->id}}" data-section-name="{{$d->section_name}}" data-desc="{{$d->description}}" data-effect="effect-rotate-bottom" data-toggle="modal" href="#modaldemo9"><i class="las la-pen"></i>
+                                                        <a class="modal-effect btn btn-outline-info btn-sm"
+                                                        data-id="{{$d->id}}" data-section-name="{{$d->section_name}}" data-desc="{{$d->description}}" data-effect="effect-rotate-bottom" data-toggle="modal" href="#modaldemo9">Edit<i class="las la-pen"></i>
                                                         </a>
 
-                                                        <a class="modal-effect btn btn-outline-danger" data-id="{{$d->id}}" data-section-name="{{$d->section_name}}" data-desc="{{$d->description}}" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo12"><i
+                                                        <a class="modal-effect btn btn-outline-danger btn-sm" data-id="{{$d->id}}" data-section-name="{{$d->section_name}}" data-desc="{{$d->description}}" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo12">Delete<i
                                                         class="las la-trash"></i>
                                                         </a>
                                                     </td>

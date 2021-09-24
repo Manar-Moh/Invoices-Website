@@ -115,13 +115,13 @@
                                                     <td>{{$d->section->section_name}}</td>
                                                     <td>{{$d->description}}</td>
                                                     <td>
-                                                        <a class="modal-effect btn btn-outline-info"
+                                                        <a class="modal-effect btn btn-outline-info btn-sm"
                                                         data-id="{{$d->id}}"
-                                                        data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section_id}}" data-effect="effect-rotate-bottom" data-toggle="modal" href="#modaldemo9"><i class="las la-pen"></i>
+                                                        data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section_id}}" data-effect="effect-rotate-bottom" data-toggle="modal" href="#modaldemo9">Edit<i class="las la-pen"></i>
                                                         </a>
 
-                                                        <a class="modal-effect btn btn-outline-danger" data-id="{{$d->id}}"
-                                                        data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section->section_name}}" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo12"><i
+                                                        <a class="modal-effect btn btn-outline-danger btn-sm" data-id="{{$d->id}}"
+                                                        data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section->section_name}}" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo12">Delete<i
                                                         class="las la-trash"></i>
                                                         </a>
                                                     </td>

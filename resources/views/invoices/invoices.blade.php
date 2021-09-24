@@ -33,7 +33,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example1" class="table key-buttons text-md-nowrap">
+                                    <table id="example2" class="table key-buttons text-md-nowrap">
                                         <thead>
                                             <tr>
                                                 <th class="border-bottom-0">#</th>
@@ -48,23 +48,40 @@
                                                 <th class="border-bottom-0">Total</th>
                                                 <th class="border-bottom-0">Status</th>
                                                 <th class="border-bottom-0">Note</th>
+                                                <th class="border-bottom-0">Operations</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
+                                            <?php $num = 0 ?>
+                                            @foreach ($invoices as $d)
+                                                 <?php $num++ ?>
+                                                <tr>
+                                                    <td>{{$num}}</td>
+                                                    <td>{{$d->invoice_number}}</td>
+                                                    <td>{{$d->invoice_Date}}</td>
+                                                    <td>{{$d->Due_date}}</td>
+                                                    <td>{{$d->product}}</td>
+                                                    <td>{{$d->section->section_name}}</td>
+                                                    <td>{{$d->Discount}}</td>
+                                                    <td>{{$d->Value_VAT}}</td>
+                                                    <td>{{$d->Rate_VAT}}%</td>
+                                                    <td>{{$d->Total}}</td>
+                                                    <td>
+                                                        @if ($d->status == 1)
+                                                            <span class="text-success">Paid</span>
+                                                        @elseif ($d->status == 2)
+                                                            <span class="text-warning">Partially Paid</span>
+                                                        @elseif ($d->status == 3)
+                                                            <span class="text-danger">Non Paid</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$d->description}}</td>
+                                                    <td>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('invoiceDetails')}}/{{$d->id}}">Edit<i class="las la-pen"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

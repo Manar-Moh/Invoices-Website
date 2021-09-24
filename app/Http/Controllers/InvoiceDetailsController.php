@@ -3,83 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\invoice_details;
+use App\invoices;
+use App\invoices_attachments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use SebastianBergmann\Environment\Console;
 
 class InvoiceDetailsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\invoice_details  $invoice_details
-     * @return \Illuminate\Http\Response
-     */
     public function show(invoice_details $invoice_details)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\invoice_details  $invoice_details
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(invoice_details $invoice_details)
+    public function edit($id)
     {
-        //
+        $invoice = invoices::where('id',$id)->first();
+        $details = invoice_details::where('id_Invoice',$id)->get();
+        $attachments = invoices_attachments::where('invoice_id',$id)->get();
+        return view('invoices.invoiceDetails',compact('invoice','details','attachments'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\invoice_details  $invoice_details
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, invoice_details $invoice_details)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\invoice_details  $invoice_details
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(invoice_details $invoice_details)
+    public function destroy(Request $request)
     {
-        //
+
+        invoices_attachments::find($request->id_file)->delete();
+        Storage::disk('attachments_upload')->delete($request->invoice_number.'/'.$request->file_name);
+        session()->flash('success_delete','Attachment Was Deleted Successfully');
+        return back();
     }
+
+    public function viewFile($invoice_number,$file_name)
+    {
+        $path = public_path().'/Attachments/'.$invoice_number.'/'.$file_name;
+        return response()->file($path);
+    }
+
+    public function downloadFile($invoice_number,$file_name)
+    {
+        $path = public_path().'/Attachments/'.$invoice_number.'/'.$file_name;
+        return response()->download($path);
+    }
+
 }

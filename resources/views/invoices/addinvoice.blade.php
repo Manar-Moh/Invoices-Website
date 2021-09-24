@@ -231,7 +231,7 @@
                         success:function(data){
                             $('select[name = "product"]').empty();
                             $.each(data,function(key,value){
-                                $('select[name = "product"]').append('<option value="'+key+'">'+value+'</option>');
+                                $('select[name = "product"]').append('<option value="'+value+'">'+value+'</option>');
                             });
                         },
                     });
@@ -245,7 +245,6 @@
             var CommissionAmount = parseFloat(document.getElementById('CommissionAmount').value);
             var Discount = parseFloat(document.getElementById('Discount').value);
             var Rate_VAT = parseFloat(document.getElementById('Rate_VAT').value);
-            console.log(Rate_VAT);
 
             if(typeof CommissionAmount == "undefined" || !CommissionAmount){
                 alert("Please Enter Commission Amount");
