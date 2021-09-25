@@ -39,6 +39,15 @@
                         </button>
                     </div>
                 @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <!-- end::Alerts -->
 
@@ -190,7 +199,26 @@
 
                                     <!-- Invoice Attachments-->
                                     <div class="tab-pane" id="tab6">
-
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <p class="text-danger">* Attachment Format : pdf, jpeg, jpg, png </p>
+                                                <form method="post" action="{{ url('invoiceAttachments') }}"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="customFile"
+                                                            name="file_name" required>
+                                                        <label class="custom-file-label" for="customFile" style="height: 55px">Browse Attachment</label>
+                                                        <input type="hidden" id="customFile" name="invoice_number"
+                                                            value="{{ $invoice->invoice_number }}">
+                                                        <input type="hidden" id="invoice_id" name="invoice_id"
+                                                            value="{{ $invoice->id }}">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary mt-4" name="uploadedFile">Add Attachment</button>
+                                                </form>
+                                            </div>
+                                         <br>
+                                        </div>
                                         <div class="table-responsive mt-15">
                                             <table class="table center-aligned-table mb-0 table table-hover"
                                                 style="text-align:center">
@@ -319,4 +347,11 @@
         })
     </script>
 
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
 @endsection

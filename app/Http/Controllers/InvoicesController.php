@@ -78,14 +78,32 @@ class InvoicesController extends Controller
         //
     }
 
-    public function edit(invoices $invoices)
+    public function edit($id)
     {
-        //
+        $invoice = invoices::where('id',$id)->first();
+        $sections = sections::all();
+        return view('invoices.edit_invoice',compact('invoice','sections'));
     }
 
-    public function update(Request $request, invoices $invoices)
+    public function update(Request $request)
     {
-        //
+        $invoises = invoices::find($request->invoice_id1);
+        $invoises->update([
+            'invoice_Date' => date("Y-m-d",strtotime($request->invoice_Date)),
+            'Due_date' => date("Y-m-d",strtotime($request->Due_date)),
+            'product' => $request->product,
+            'section_id' => $request->Section,
+            'Amount_collection' => $request->Amount_collection,
+            'Amount_Commission' => $request->CommissionAmount,
+            'Discount' => $request->Discount,
+            'Value_VAT' => $request->Value_VAT,
+            'Rate_VAT' => $request->Rate_VAT,
+            'Total' => $request->Total,
+            'description' => $request->note,
+        ]);
+
+        session()->flash('success_edit','Invoice Was Updated Successfully');
+        return back();
     }
 
     public function destroy(invoices $invoices)

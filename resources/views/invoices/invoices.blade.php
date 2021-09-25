@@ -77,7 +77,9 @@
                                                     </td>
                                                     <td>{{$d->description}}</td>
                                                     <td>
-                                                        <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('invoiceDetails')}}/{{$d->id}}">Edit<i class="las la-pen"></i>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('invoiceDetails')}}/{{$d->id}}">Show Details<i class="las la-eye"></i>
+                                                        </a>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('edit_invoice')}}/{{$d->id}}">Edit<i class="las la-pen"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
