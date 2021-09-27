@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/plugins/sumoselect/sumoselect-rtl.css') }}">
     <!--Internal  TelephoneInput css-->
     <link rel="stylesheet" href="{{ URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css') }}">
+    <!--Internal   Notify -->
+    <link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
 @section('title')
     Edit Invoice - InvoicesOrg
@@ -35,17 +37,14 @@
         <!-- begin::Alerts -->
         <div class="col">
             @if (session()->has('success_edit'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
-                    <span class="alert-inner--text">
-                        <strong>
-                            {{session()->get('success_edit')}}
-                        </strong>
-                    </span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
+                <script>
+                    window.onload = function(){
+                        notif({
+                            msg: '{{session()->get('success_edit')}}',
+                            type: "success",
+                        });
+                    }
+                </script>
             @endif
         </div>
         <!-- end::Alerts -->
@@ -209,6 +208,10 @@
     <script src="{{ URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js') }}"></script>
     <!-- Internal form-elements js -->
     <script src="{{ URL::asset('assets/js/form-elements.js') }}"></script>
+    <!--Internal  Notify js -->
+    <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/notify/js/notifit-custom.js')}}"></script>
+
 
     <script>
         var date = $('.fc-datepicker').datepicker({

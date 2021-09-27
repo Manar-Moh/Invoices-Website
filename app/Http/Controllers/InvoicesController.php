@@ -9,6 +9,7 @@ use App\sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class InvoicesController extends Controller
 {
@@ -73,9 +74,10 @@ class InvoicesController extends Controller
         return back();
     }
 
-    public function show(invoices $invoices)
+    public function show($id)
     {
-        //
+        $invoice = invoices::where('id',$id)->first();
+        return view('invoices.change_paymentStatus',compact('invoice'));
     }
 
     public function edit($id)
@@ -106,9 +108,17 @@ class InvoicesController extends Controller
         return back();
     }
 
-    public function destroy(invoices $invoices)
+    public function destroy(Request $request)
     {
-        //
+        /*** FOR DELETE FILES PERMANENTLY (FORCE DELETE) ***
+        $attachments = invoices_attachments::where('invoice_id',$request->id)->first();
+        if(!empty($attachments)){
+            Storage::disk('attachments_upload')->deleteDirectory($attachments->invoice_number);
+        }*/
+
+        invoices::find($request->id)->delete();
+        session()->flash('success_delete','Invoice Was Deleted Successfully');
+        return redirect('/invoices');
     }
 
     public function getProducts($id){

@@ -6,6 +6,7 @@ use App\invoice_details;
 use App\invoices;
 use App\invoices_attachments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use SebastianBergmann\Environment\Console;
@@ -24,7 +25,42 @@ class InvoiceDetailsController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $invoises = invoices::find($request->invoice_id);
+        if($request->status == 1){
+            $invoises->update([
+                'status' => $request->status,
+                'Payment_Date' => date("Y-m-d",strtotime($request->Payment_Date))
+            ]);
+            invoice_details::create([
+                'id_Invoice' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'section' => $request->Section,
+                'status' => '1',
+                'description' => $request->note,
+                'User' => Auth::user()->name,
+                'Payment_Date' => date("Y-m-d",strtotime($request->Payment_Date))
+            ]);
+        }
+        elseif($request->status == 2){
+            $invoises->update([
+                'status' => $request->status,
+                'Payment_Date' => date("Y-m-d",strtotime($request->Payment_Date))
+            ]);
+            invoice_details::create([
+                'id_Invoice' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'section' => $request->Section,
+                'status' => '2',
+                'description' => $request->note,
+                'User' => Auth::user()->name,
+                'Payment_Date' => date("Y-m-d",strtotime($request->Payment_Date))
+            ]);
+        }
+
+        session()->flash('success','Payment Status Was Updated Successfully');
+        return redirect('/invoices');
     }
 
     public function show(invoice_details $invoice_details)

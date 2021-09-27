@@ -7,6 +7,8 @@
     <link href="{{ URL::asset('assets/plugins/inputtags/inputtags.css') }}" rel="stylesheet">
     <!--- Custom-scroll -->
     <link href="{{ URL::asset('assets/plugins/custom-scroll/jquery.mCustomScrollbar.css') }}" rel="stylesheet">
+    <!--Internal   Notify -->
+    <link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -27,26 +29,35 @@
              <!-- begin::Alerts -->
              <div class="col">
                 @if (session()->has('success_delete'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
-                        <span class="alert-inner--text">
-                            <strong>
-                                {{session()->get('success_delete')}}
-                            </strong>
-                        </span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
+                    <script>
+                        window.onload = function(){
+                            notif({
+                                msg: '{{session()->get('success_delete')}}',
+                                type: "error"
+                            });
+                        }
+                    </script>
+                @elseif (session()->has('success'))
+                    <script>
+                        window.onload = function(){
+                            notif({
+                                msg: '{{session()->get('success')}}',
+                                type: "success"
+                            });
+                        }
+                    </script>
                 @endif
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    @foreach ($errors->all() as $error)
+                        <script>
+                            window.onload = function(){
+                                notif({
+                                    msg: '{{$error}}',
+                                    type: "error"
+                                });
+                            }
+                        </script>
+                    @endforeach
                 @endif
             </div>
             <!-- end::Alerts -->
@@ -110,7 +121,7 @@
 
                                                         @if ($invoice->status == 1)
                                                             <td>
-                                                                <span class="badge badge-pill badge-success">
+                                                                <span class="badge badge-pill badge-success p-2">
                                                                     Paid
                                                                 </span>
                                                             </td>
@@ -122,7 +133,7 @@
                                                             </td>
                                                         @else
                                                             <td>
-                                                                <span class="badge badge-pill badge-warning">
+                                                                <span class="badge badge-pill badge-warning p-2">
                                                                     Partially Paid
                                                                 </span>
                                                             </td>
@@ -169,7 +180,7 @@
                                                             <td>{{ $invoice->section->section_name }}</td>
                                                             @if ($x->status == 1)
                                                             <td>
-                                                                <span class="badge badge-pill badge-success">
+                                                                <span class="badge badge-pill badge-success p-2">
                                                                     Paid
                                                                 </span>
                                                             </td>
@@ -181,7 +192,7 @@
                                                             </td>
                                                         @else
                                                             <td>
-                                                                <span class="badge badge-pill badge-warning">
+                                                                <span class="badge badge-pill badge-warning p-2">
                                                                     Partially Paid
                                                                 </span>
                                                             </td>
@@ -333,6 +344,9 @@
     <script src="{{ URL::asset('assets/plugins/clipboard/clipboard.js') }}"></script>
     <!-- Internal Prism js-->
     <script src="{{ URL::asset('assets/plugins/prism/prism.js') }}"></script>
+    <!--Internal  Notify js -->
+    <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/notify/js/notifit-custom.js')}}"></script>
 
     <script>
         $('#delete_file').on('show.bs.modal', function(event) {

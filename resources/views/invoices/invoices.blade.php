@@ -8,6 +8,9 @@
     <link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+     <!--Internal   Notify -->
+     <link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
+
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -24,6 +27,31 @@
 				<!-- row -->
 				<div class="row">
                     <!--div-->
+
+                    <!-- begin::Alerts -->
+                    <div class="col">
+                        @if (session()->has('success_delete'))
+                            <script>
+                                window.onload = function(){
+                                    notif({
+                                        msg: '{{session()->get('success_delete')}}',
+                                        type: "error"
+                                    });
+                                }
+                            </script>
+                        @elseif (session()->has('success'))
+                            <script>
+                                window.onload = function(){
+                                    notif({
+                                        msg: '{{session()->get('success')}}',
+                                        type: "success"
+                                    });
+                                }
+                            </script>
+                        @endif
+                    </div>
+                    <!-- end::Alerts -->
+
                     <div class="col-xl-12">
                         <div class="card mg-b-20">
                             <div class="card-header pb-0 d-flex justify-content-end">
@@ -79,7 +107,15 @@
                                                     <td>
                                                         <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('invoiceDetails')}}/{{$d->id}}">Show Details<i class="las la-eye"></i>
                                                         </a>
-                                                        <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('edit_invoice')}}/{{$d->id}}">Edit<i class="las la-pen"></i>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('edit_invoice')}}/{{$d->id}}">Edit Invoice<i class="las la-pen"></i>
+                                                        </a>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('payment_change')}}/{{$d->id}}">Change Payment Status<i class="las la-pen"></i>
+                                                        </a>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm"
+                                                        data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
+                                                        data-toggle="modal"
+                                                        data-target="#modaldemo12"
+                                                        href="#">Delete Invoice<i class="las la-trash"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -91,6 +127,33 @@
                         </div>
                     </div>
                     <!--/div-->
+
+                     <!--  begin::Modal Delete -->
+                     <div class="modal effect-slide-in-right" id="modaldemo12">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-content-demo">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">Delete Invoice</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <form action="invoices/destroy" method="Post" autocomplete="off">
+                                   @method('delete')
+                                    @csrf
+                                    <div class="modal-body">
+                                        <!--Invoice Number-->
+                                        <p style="margin-bottom: 15px">Are You Sure You Want To Delete This Invoice ?</p>
+                                        <input type="hidden" id="id" name="id" value="">
+                                        <input type="text" name="invoice_number" id="invoice_number" class="form-control" readonly>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                        <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  end::Modal Delete -->
+
 				</div>
 				<!-- row closed -->
 			</div>
@@ -118,4 +181,20 @@
     <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
     <!--Internal  Datatable js -->
     <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+    <!--Internal  Notify js -->
+    <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/notify/js/notifit-custom.js')}}"></script>
+
+    <!-- Delete Script-->
+    <script>
+        $('#modaldemo12').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var id = button.data('invoice-id')
+                var invoice_number = button.data('invoice-number')
+                var modal = $(this)
+                modal.find('.modal-body #id').val(id);
+                modal.find('.modal-body #invoice_number').val(invoice_number);
+            })
+    </script>
+
 @endsection

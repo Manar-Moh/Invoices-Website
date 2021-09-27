@@ -14,6 +14,8 @@
     <link href="{{URL::asset('assets/plugins/multislider/multislider.css')}}" rel="stylesheet">
     <!--- Select2 css -->
     <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+    <!--Internal   Notify -->
+    <link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -32,57 +34,44 @@
                     <!-- begin::Alerts -->
                     <div class="col">
                         @if (session()->has('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
-                                <span class="alert-inner--text">
-                                    <strong>
-                                        {{session()->get('success')}}
-                                    </strong>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
+                           <script>
+                               window.onload = function(){
+                                    notif({
+                                        msg: '{{session()->get('success')}}',
+                                        type: "success"
+                                    });
+                               }
+                           </script>
                         @elseif (session()->has('success_edit'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
-                                <span class="alert-inner--text">
-                                    <strong>
-                                        {{session()->get('success_edit')}}
-                                    </strong>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
+                            <script>
+                                window.onload = function(){
+                                    notif({
+                                        msg: '{{session()->get('success_edit')}}',
+                                        type: "success",
+                                    });
+                                }
+                            </script>
                         @elseif (session()->has('success_delete'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
-                                <span class="alert-inner--text">
-                                    <strong>
-                                        {{session()->get('success_delete')}}
-                                    </strong>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
+                            <script>
+                                window.onload = function(){
+                                    notif({
+                                        msg: '{{session()->get('success_delete')}}',
+                                        type: "error"
+                                    });
+                                }
+                            </script>
                         @endif
                         @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <span class="alert-inner--text">
-                                    <strong>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{$error}}</li>
-                                            @endforeach
-                                        </ul>
-                                    </strong>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
+                            @foreach ($errors->all() as $error)
+                                <script>
+                                    window.onload = function(){
+                                        notif({
+                                            msg: '{{$error}}',
+                                            type: "error"
+                                        });
+                                    }
+                                </script>
+                            @endforeach
                         @endif
                     </div>
                     <!-- end::Alerts -->
@@ -255,6 +244,9 @@
     <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
     <!-- Internal Modal js-->
     <script src="{{URL::asset('assets/js/modal.js')}}"></script>
+    <!--Internal  Notify js -->
+    <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
+    <script src="{{URL::asset('assets/plugins/notify/js/notifit-custom.js')}}"></script>
 
     <!-- Edit Script-->
     <script>

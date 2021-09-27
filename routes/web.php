@@ -42,4 +42,8 @@ Route::resource('invoiceAttachments', 'InvoicesAttachmentsController');
 
 Route::get('/edit_invoice/{id}', 'InvoicesController@edit');
 
+Route::get('/payment_change/{id}', 'InvoicesController@show');
+
+Route::resource('invoiceDetails', 'InvoiceDetailsController');
+
 Route::get('/{page}', 'AdminController@index');
