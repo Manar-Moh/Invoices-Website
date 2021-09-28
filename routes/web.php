@@ -46,4 +46,14 @@ Route::get('/payment_change/{id}', 'InvoicesController@show');
 
 Route::resource('invoiceDetails', 'InvoiceDetailsController');
 
+Route::get('invoice_paid', 'InvoicesController@invoice_paid');
+
+Route::get('invoice_partially_paid', 'InvoicesController@invoice_partially_paid');
+
+Route::get('invoice_non_paid', 'InvoicesController@invoice_non_paid');
+
+Route::get('invoicesArchieve', 'InvoicesArchieveController@index');
+
+Route::get('/invoicesArchieve/destroy/{id}', 'InvoicesArchieveController@destroy')->name('archived_invoice_destroy');
+
 Route::get('/{page}', 'AdminController@index');

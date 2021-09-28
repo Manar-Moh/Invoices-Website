@@ -110,14 +110,22 @@ class InvoicesController extends Controller
 
     public function destroy(Request $request)
     {
-        /*** FOR DELETE FILES PERMANENTLY (FORCE DELETE) ***
-        $attachments = invoices_attachments::where('invoice_id',$request->id)->first();
-        if(!empty($attachments)){
-            Storage::disk('attachments_upload')->deleteDirectory($attachments->invoice_number);
-        }*/
+        if($request->page_id == 2){
 
-        invoices::find($request->id)->delete();
-        session()->flash('success_delete','Invoice Was Deleted Successfully');
+            invoices::find($request->id)->delete();
+            session()->flash('success_delete','Invoice Was Archived Successfully');
+        }
+        else{
+
+            $attachments = invoices_attachments::where('invoice_id',$request->id)->first();
+            if(!empty($attachments)){
+                Storage::disk('attachments_upload')->deleteDirectory($attachments->invoice_number);
+            }
+            $invoice = invoices::find($request->id)->first();
+            $invoice->forceDelete();
+            session()->flash('success_delete','Invoice Was Deleted Successfully'.$request->invoice_Date);
+        }
+
         return redirect('/invoices');
     }
 
@@ -125,5 +133,23 @@ class InvoicesController extends Controller
 
         $products = DB::table('products')->where('section_id',$id)->pluck('product_name','id');
         return json_encode($products);
+    }
+
+    public function invoice_paid()
+    {
+        $invoices = invoices::where('status','1')->get();
+        return view('invoices.invoice_paid',compact('invoices'));
+    }
+
+    public function invoice_partially_paid()
+    {
+        $invoices = invoices::where('status','2')->get();
+        return view('invoices.invoice_partially_paid',compact('invoices'));
+    }
+
+    public function invoice_non_paid()
+    {
+        $invoices = invoices::where('status','3')->get();
+        return view('invoices.invoice_non_paid',compact('invoices'));
     }
 }

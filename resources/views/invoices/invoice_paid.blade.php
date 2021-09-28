@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','All Invoices - InvoicesOrg')
+@section('title','Paid Invoices - InvoicesOrg')
 @section('css')
     <!-- Internal Data table css -->
     <link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
@@ -17,7 +17,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Invoices</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ All Invoices</span>
+                <h4 class="content-title mb-0 my-auto">Invoices</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/Paid Invoices</span>
             </div>
         </div>
     </div>
@@ -114,12 +114,6 @@
                                                         <a class="btn btn-outline-info btn-rounded btn-sm"
                                                         data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
                                                         data-toggle="modal"
-                                                        data-target="#modaldemo9"
-                                                        href="#">Archive Invoice<i class="fas fa-archive"></i>
-                                                        </a>
-                                                        <a class="btn btn-outline-info btn-rounded btn-sm"
-                                                        data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
-                                                        data-toggle="modal"
                                                         data-target="#modaldemo12"
                                                         href="#">Delete Invoice<i class="las la-trash"></i>
                                                         </a>
@@ -160,33 +154,6 @@
                     </div>
                     <!--  end::Modal Delete -->
 
-                     <!--  begin::Modal Archive -->
-                     <div class="modal fade" id="modaldemo9">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content modal-content-demo">
-                                <div class="modal-header">
-                                    <h6 class="modal-title">Archive Invoice</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                                </div>
-                                <form action="invoices/destroy" method="Post" autocomplete="off">
-                                    @method('delete')
-                                    @csrf
-                                    <div class="modal-body">
-                                        <!--Invoice Number-->
-                                        <p style="margin-bottom: 15px">Are You Sure You Want To Archive This Invoice ?</p>
-                                        <input type="hidden" id="id" name="id" value="">
-                                        <input type="hidden" id="page_id" name="page_id" value="2">
-                                        <input type="text" name="invoice_number" id="invoice_number" class="form-control" readonly>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-danger" type="submit">Archive</button>
-                                        <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!--  end::Modal Archive -->
-
 				</div>
 				<!-- row closed -->
 			</div>
@@ -221,17 +188,6 @@
     <!-- Delete Script-->
     <script>
         $('#modaldemo12').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget)
-                var id = button.data('invoice-id')
-                var invoice_number = button.data('invoice-number')
-                var modal = $(this)
-                modal.find('.modal-body #id').val(id);
-                modal.find('.modal-body #invoice_number').val(invoice_number);
-            })
-    </script>
-
-    <script>
-        $('#modaldemo9').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
                 var id = button.data('invoice-id')
                 var invoice_number = button.data('invoice-number')
