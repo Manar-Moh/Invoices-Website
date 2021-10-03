@@ -118,6 +118,9 @@
                                                         href="#">Archive Invoice<i class="fas fa-archive"></i>
                                                         </a>
                                                         <a class="btn btn-outline-info btn-rounded btn-sm"
+                                                        href="print_invoice/{{$d->id}}">Print Invoice<i class="las la-print"></i>
+                                                        </a>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm"
                                                         data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
                                                         data-toggle="modal"
                                                         data-target="#modaldemo12"

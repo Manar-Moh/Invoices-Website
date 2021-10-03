@@ -110,20 +110,22 @@ class InvoicesController extends Controller
 
     public function destroy(Request $request)
     {
+        //Invoice Archive
         if($request->page_id == 2){
 
             invoices::find($request->id)->delete();
-            session()->flash('success_delete','Invoice Was Archived Successfully');
+            session()->flash('success','Invoice Was Archived Successfully');
         }
         else{
 
+            //To Delete
             $attachments = invoices_attachments::where('invoice_id',$request->id)->first();
             if(!empty($attachments)){
                 Storage::disk('attachments_upload')->deleteDirectory($attachments->invoice_number);
             }
-            $invoice = invoices::find($request->id)->first();
+            $invoice = invoices::where('id',$request->id)->first();
             $invoice->forceDelete();
-            session()->flash('success_delete','Invoice Was Deleted Successfully'.$request->invoice_Date);
+            session()->flash('success','Invoice Was Deleted Successfully'.$request->invoice_Date);
         }
 
         return redirect('/invoices');
@@ -151,5 +153,11 @@ class InvoicesController extends Controller
     {
         $invoices = invoices::where('status','3')->get();
         return view('invoices.invoice_non_paid',compact('invoices'));
+    }
+
+    public function print_invoice($id)
+    {
+        $invoice = invoices::where('id',$id)->first();
+        return view('invoices.print_invoice',compact('invoice'));
     }
 }

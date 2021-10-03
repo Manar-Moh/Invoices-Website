@@ -52,8 +52,8 @@ Route::get('invoice_partially_paid', 'InvoicesController@invoice_partially_paid'
 
 Route::get('invoice_non_paid', 'InvoicesController@invoice_non_paid');
 
-Route::get('invoicesArchieve', 'InvoicesArchieveController@index');
+Route::resource('invoicesArchieve', 'InvoicesArchieveController');
 
-Route::get('/invoicesArchieve/destroy/{id}', 'InvoicesArchieveController@destroy')->name('archived_invoice_destroy');
+Route::get('print_invoice/{id}', 'InvoicesController@print_invoice');
 
 Route::get('/{page}', 'AdminController@index');

@@ -54,11 +54,6 @@
 
                     <div class="col-xl-12">
                         <div class="card mg-b-20">
-                            <div class="card-header pb-0 d-flex justify-content-end">
-                                <div class="col-6 col-md-4 col-lg-2">
-                                    <a class="modal-effect btn btn-primary-gradient btn-block" href="invoices/create">Add Invoice</a>
-                                </div>
-                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="example2" class="table key-buttons text-md-nowrap">

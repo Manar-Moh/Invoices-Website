@@ -54,11 +54,6 @@
 
                     <div class="col-xl-12">
                         <div class="card mg-b-20">
-                            <div class="card-header pb-0 d-flex justify-content-end">
-                                <div class="col-6 col-md-4 col-lg-2">
-                                    <a class="modal-effect btn btn-primary-gradient btn-block" href="invoices/create">Add Invoice</a>
-                                </div>
-                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="example1" class="table key-buttons text-md-nowrap">
@@ -107,6 +102,12 @@
                                                         <a class="btn btn-outline-info btn-rounded btn-sm"
                                                         data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
                                                         data-toggle="modal"
+                                                        data-target="#modaldemo9"
+                                                        href="#">Move To Invoices<i class="typcn typcn-arrow-back-outline"></i>
+                                                        </a>
+                                                        <a class="btn btn-outline-info btn-rounded btn-sm"
+                                                        data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
+                                                        data-toggle="modal"
                                                         data-target="#modaldemo12"
                                                         href="#">Delete Invoice<i class="las la-trash"></i>
                                                         </a>
@@ -121,6 +122,31 @@
                     </div>
                     <!--/div-->
 
+                    <!--  begin::Modal Move To Invoices -->
+                    <div class="modal fade" id="modaldemo9">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-content-demo">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">Un-Archived Invoice</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <form action="invoicesArchieve/update" method="post" autocomplete="off">
+                                    @csrf
+                                    @method('patch')
+                                    <div class="modal-body">
+                                        <!--Invoice Number-->
+                                        <p style="margin-bottom: 15px"> Are You Sure You Want To Move This Invoice To Invoices ?</p>
+                                        <input type="hidden" id="id" name="id">
+                                        <input type="text" name="invoice_number" id="invoice_number" class="form-control" readonly>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-danger" type="submit">Move</button>
+                                        <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  end::Modal Move To Invoices -->
                      <!--  begin::Modal Delete -->
                      <div class="modal effect-slide-in-right" id="modaldemo12">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -128,8 +154,9 @@
                                 <div class="modal-header">
                                     <h6 class="modal-title">Delete Invoice</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                 </div>
-                                <form action="{{route('archived_invoice_destroy')}}/{{$d->id}}" method="Post" autocomplete="off">
+                                <form action="invoicesArchieve/destroy" method="post" autocomplete="off">
                                     @csrf
+                                    @method('delete')
                                     <div class="modal-body">
                                         <!--Invoice Number-->
                                         <p style="margin-bottom: 15px">Are You Sure You Want To Delete This Invoice ?</p>
@@ -179,7 +206,7 @@
 
     <!-- Delete Script-->
     <script>
-        $('#modaldemo12').on('show.bs.modal', function(event) {
+        $('#modaldemo12,#modaldemo9').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
                 var id = button.data('invoice-id')
                 var invoice_number = button.data('invoice-number')
