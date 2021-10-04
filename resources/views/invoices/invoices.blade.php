@@ -56,7 +56,8 @@
                         <div class="card mg-b-20">
                             <div class="card-header pb-0 d-flex justify-content-end">
                                 <div class="col-6 col-md-4 col-lg-2">
-                                    <a class="modal-effect btn btn-primary-gradient btn-block" href="invoices/create">Add Invoice</a>
+                                    <a class="modal-effect btn btn-primary-gradient btn-block" href="invoices/create"><i class="fas fa-plus"></i> Add Invoice</a>
+                                    <a class="modal-effect btn btn-success btn-block" href="{{url('export_invoice')}}"><i class="fas fa-download"></i> Export Excel</a>
                                 </div>
                             </div>
                             <div class="card-body">

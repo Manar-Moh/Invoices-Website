@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InvoicesExport;
 use App\invoice_details;
 use App\invoices;
 use App\invoices_attachments;
+use App\Notifications\addInvoice;
 use App\sections;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoicesController extends Controller
 {
@@ -69,6 +74,10 @@ class InvoicesController extends Controller
             $fileName = $request->file('attachmentfile')->getClientOriginalName();
             $request->file('attachmentfile')->move(public_path('Attachments/'.$request->invoice_number),$fileName);
         }
+
+        //Send Email
+       // $user = Auth::user();
+       // Notification::send($user,new addInvoice($invoice_id,$user->name));
 
         session()->flash('success','Invoice Was Added Successfully');
         return back();
@@ -159,5 +168,10 @@ class InvoicesController extends Controller
     {
         $invoice = invoices::where('id',$id)->first();
         return view('invoices.print_invoice',compact('invoice'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new InvoicesExport, 'Invoices.xlsx');
     }
 }
