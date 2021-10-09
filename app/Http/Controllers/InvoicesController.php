@@ -19,6 +19,20 @@ use Maatwebsite\Excel\Facades\Excel;
 class InvoicesController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware('permission:Invoices|All Invoices', ['only' => ['index']]);
+        $this->middleware('permission:Add Invoice', ['only' => ['create','store']]);
+        $this->middleware('permission:Change Payment Status', ['only' => ['show']]);
+        $this->middleware('permission:Edit Invoice', ['only' => ['edit','update']]);
+        $this->middleware('permission:Archive Invoice|Delete Invoice', ['only' => ['destroy']]);
+        $this->middleware('permission:Invoices|Paid Invoices', ['only' => ['invoice_paid']]);
+        $this->middleware('permission:Invoices|Partially-Paid Invoices', ['only' => ['invoice_partially_paid']]);
+        $this->middleware('permission:Invoices|Non-Paid Invoices', ['only' => ['invoice_non_paid']]);
+        $this->middleware('permission:Print Invoice', ['only' => ['print_invoice']]);
+        $this->middleware('permission:Export Excel', ['only' => ['export']]);
+    }
+
     public function index()
     {
         $invoices = invoices::all();

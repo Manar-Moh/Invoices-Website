@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Hash as FacadesHash;
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+       /* $this->middleware('permission:Users|All Users', ['only' => ['index']]);
+        $this->middleware('permission:Users|Add User', ['only' => ['create','store']]);
+        $this->middleware('permission:Show Permission', ['only' => ['show']]);
+        $this->middleware('permission:Edit Invoice', ['only' => ['edit','update']]);
+        $this->middleware('permission:Archive Invoice|Delete Invoice', ['only' => ['destroy']]);*/
+    }
+
     public function index(Request $request)
     {
         $data = User::orderBy('id','DESC')->paginate(5);

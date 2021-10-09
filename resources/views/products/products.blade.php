@@ -79,7 +79,9 @@
                         <div class="card mg-b-20">
                             <div class="card-header pb-0 d-flex justify-content-end">
                                 <div class="col-6 col-md-4 col-lg-2">
+                                    @can('Add Product')
                                     <a class="modal-effect btn btn-primary-gradient btn-block" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo8">Add Product</a>
+                                    @endcan
                                 </div>
                             </div>
                             <div class="card-body">
@@ -104,15 +106,18 @@
                                                     <td>{{$d->section->section_name}}</td>
                                                     <td>{{$d->description}}</td>
                                                     <td>
+                                                        @can('Edit Product')
                                                         <a class="modal-effect btn btn-outline-info btn-sm"
                                                         data-id="{{$d->id}}"
                                                         data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section_id}}" data-effect="effect-rotate-bottom" data-toggle="modal" href="#modaldemo9">Edit<i class="las la-pen"></i>
                                                         </a>
-
+                                                        @endcan
+                                                        @can('Delete Product')
                                                         <a class="modal-effect btn btn-outline-danger btn-sm" data-id="{{$d->id}}"
                                                         data-product-name="{{$d->product_name}}" data-desc="{{$d->description}}"  data-section-name="{{$d->section->section_name}}" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo12">Delete<i
                                                         class="las la-trash"></i>
                                                         </a>
+                                                        @endcan
                                                     </td>
                                                 </tr>
                                             @endforeach

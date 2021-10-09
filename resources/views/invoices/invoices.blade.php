@@ -56,8 +56,13 @@
                         <div class="card mg-b-20">
                             <div class="card-header pb-0 d-flex justify-content-end">
                                 <div class="col-6 col-md-4 col-lg-2">
-                                    <a class="modal-effect btn btn-primary-gradient btn-block" href="invoices/create"><i class="fas fa-plus"></i> Add Invoice</a>
+                                    @can('Add Invoice')
+                                    <a class="modal-effect btn btn-primary-gradient btn-block"
+                                    href="invoices/create"><i class="fas fa-plus"></i> Add Invoice</a>
+                                    @endcan
+                                    @can('Export Excel')
                                     <a class="modal-effect btn btn-success btn-block" href="{{url('export_invoice')}}"><i class="fas fa-download"></i> Export Excel</a>
+                                    @endcan
                                 </div>
                             </div>
                             <div class="card-body">
@@ -108,25 +113,35 @@
                                                     <td>
                                                         <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('invoiceDetails')}}/{{$d->id}}">Show Details<i class="las la-eye"></i>
                                                         </a>
+                                                        @can('Edit Invoice')
                                                         <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('edit_invoice')}}/{{$d->id}}">Edit Invoice<i class="las la-pen"></i>
                                                         </a>
+                                                        @endcan
+                                                        @can('Change Payment Status')
                                                         <a class="btn btn-outline-info btn-rounded btn-sm" href="{{url('payment_change')}}/{{$d->id}}">Change Payment Status<i class="las la-pen"></i>
                                                         </a>
+                                                        @endcan
+                                                        @can('Archive Invoice')
                                                         <a class="btn btn-outline-info btn-rounded btn-sm"
                                                         data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
                                                         data-toggle="modal"
                                                         data-target="#modaldemo9"
                                                         href="#">Archive Invoice<i class="fas fa-archive"></i>
                                                         </a>
+                                                        @endcan
+                                                        @can('Print Invoice')
                                                         <a class="btn btn-outline-info btn-rounded btn-sm"
                                                         href="print_invoice/{{$d->id}}">Print Invoice<i class="las la-print"></i>
                                                         </a>
+                                                        @endcan
+                                                        @can('Delete Invoice')
                                                         <a class="btn btn-outline-info btn-rounded btn-sm"
                                                         data-invoice-id="{{$d->id}}" data-invoice-number="{{$d->invoice_number}}"
                                                         data-toggle="modal"
                                                         data-target="#modaldemo12"
                                                         href="#">Delete Invoice<i class="las la-trash"></i>
                                                         </a>
+                                                        @endcan
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -69,7 +69,9 @@
         <div class="card">
             <div class="card-header pb-0">
                 <div class="col-sm-1 col-md-2">
+                    @can('Add User')
                         <a class="btn btn-primary btn-sm" href="{{ route('users.create') }}"> Add User</a>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
@@ -112,11 +114,15 @@
                                     </td>
 
                                     <td>
+                                        @can('Edit User')
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info" title="Edit"><i class="las la-pen"></i></a>
+                                        @endcan
+                                        @can('Delete User')
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                         data-user_id="{{ $user->id }}" data-username="{{ $user->name }}"
                                         data-toggle="modal" href="#modaldemo8" title="Delete"><i
-                                            class="las la-trash"></i></a>
+                                        class="las la-trash"></i></a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

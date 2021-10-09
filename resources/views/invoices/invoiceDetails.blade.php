@@ -225,7 +225,9 @@
                                                         <input type="hidden" id="invoice_id" name="invoice_id"
                                                             value="{{ $invoice->id }}">
                                                     </div>
+                                                    @can('Add Attachment')
                                                     <button type="submit" class="btn btn-primary mt-4" name="uploadedFile">Add Attachment</button>
+                                                    @endcan
                                                 </form>
                                             </div>
                                          <br>
@@ -263,7 +265,7 @@
                                                                 role="button"><i
                                                                     class="fas fa-download"></i>&nbsp;
                                                                 Download</a>
-
+                                                                @can('Delete Attachment')
                                                                 <button class="btn btn-outline-danger btn-sm"
                                                                 data-toggle="modal"
                                                                 data-file_name="{{ $attachment->file_name }}"
@@ -271,6 +273,7 @@
                                                                 data-id_file="{{ $attachment->id }}"
                                                                 data-target="#delete_file"><i
                                                                 class="fas fa-trash"></i>&nbsp; Delete</button>
+                                                                @endcan
 
                                                             </td>
                                                         </tr>

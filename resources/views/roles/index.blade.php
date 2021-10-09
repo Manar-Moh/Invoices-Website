@@ -64,7 +64,9 @@
                 <div class="d-flex justify-content-between">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
+                            @can('Add Permission')
                                 <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}">Add</a>
+                            @endcan
                         </div>
                     </div>
                     <br>
@@ -87,18 +89,20 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
+                                        @can('Show Permission')
                                             <a class="btn btn-success btn-sm"
                                                 href="{{ route('roles.show', $role->id) }}">Show</a>
-
+                                        @endcan
+                                        @can('Edit Permission')
                                             <a class="btn btn-primary btn-sm"
                                                 href="{{ route('roles.edit', $role->id) }}">Edit</a>
-
-
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy',
-                                                $role->id], 'style' => 'display:inline']) !!}
-                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                                {!! Form::close() !!}
-
+                                        @endcan
+                                        @can('Delete Permission')
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy',
+                                            $role->id], 'style' => 'display:inline']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                            {!! Form::close() !!}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

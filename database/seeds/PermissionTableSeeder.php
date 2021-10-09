@@ -12,7 +12,6 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
 
-
             'Invoices',
             'All Invoices',
             'Paid Invoices',
@@ -29,7 +28,6 @@ class PermissionTableSeeder extends Seeder
             'Settings',
             'Products',
             'Sections',
-
 
             'Add Invoice',
             'Delete Invoice',
