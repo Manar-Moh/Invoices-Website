@@ -13,14 +13,14 @@ Invoices Website By Laravel
     2. Reports:
         - Invoices Reports.
         - Clients Reports.
-    3 Users:
+    3. Users:
         - All Users.
         - Users Permissions.
     4. Settings:
         - Products.
         - Sections.
 
-### User Can Do:
+## User Can Do:
     - Export Invoices To Excel And Download it.
     - Print Invoices.
     - Upload And Download Attachments.
