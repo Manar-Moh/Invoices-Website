@@ -55,7 +55,7 @@
                             <li><a class="slide-item" href="{{ url('/' . $page='invoices_report') }}">Invoices Reports</a></li>
                             @endcan
                             @can('Clients Reports')
-							<li><a class="slide-item" href="{{ url('/' . $page='cards') }}">Clients Report</a></li>
+							<li><a class="slide-item" href="{{ url('/' . $page='customers_report') }}">Clients Report</a></li>
                             @endcan
 						</ul>
 					</li>
